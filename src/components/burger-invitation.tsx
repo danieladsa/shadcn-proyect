@@ -1,16 +1,25 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, CSSProperties } from 'react'
 import { Button } from "@/components/ui/button"
 import { Flower2 } from 'lucide-react'
 import glasses from '../assets/glasses-confuse.gif'
 import happy from '../assets/mochi-peachcat-cute-cat.gif'
 
-export function BurgerInvitation() {
-  const [noButtonStyle, setNoButtonStyle] = useState({})
-  const [showSecondGif, setShowSecondGif] = useState(false)
-  const [postiveAnswer, setPositiveAnswer] = useState(false)
-  const [flowers, setFlowers] = useState([])
+interface Flower {
+  id: number
+  x: number
+  y: number
+  speed: number
+  size: number
+  rotation: number
+}
 
-  // Función para mover el botón "No" a una posición aleatoria
+export function BurgerInvitation() {
+  const [noButtonStyle, setNoButtonStyle] = useState<CSSProperties>({})
+  const [showSecondGif, setShowSecondGif] = useState(false)
+  const [positiveAnswer, setPositiveAnswer] = useState(false)
+  const [flowers, setFlowers] = useState<Flower[]>([])
+
+  // Mueve el botón "No" a una posición aleatoria
   const moveNoButton = useCallback(() => {
     const maxX = window.innerWidth - 100
     const maxY = window.innerHeight - 40
@@ -19,16 +28,16 @@ export function BurgerInvitation() {
     setNoButtonStyle({ position: 'fixed', left: `${newX}px`, top: `${newY}px` })
   }, [])
 
-  // Función para manejar el clic en "Sí"
+  // Maneja el clic en "Sí"
   const handleYesClick = () => {
     setPositiveAnswer(true)
     setShowSecondGif(true)
   }
 
-  // Función para crear flores cayendo
+  // Crea y anima las flores
   useEffect(() => {
     const createFlower = () => {
-      const newFlower = {
+      const newFlower: Flower = {
         id: Math.random(),
         x: Math.random() * window.innerWidth,
         y: -50,
@@ -78,16 +87,15 @@ export function BurgerInvitation() {
       <div className="text-center z-10 px-4">
         <h1 className="text-5xl font-bold mb-6 text-shadow">Annette!!! Quiero Hamburguesas  😭😬🍔</h1>
 
-        {/* GIF central que cambia cuando se hace clic en "Sí" */}
         <div className="mb-8">
           {showSecondGif ? (
             <img src={happy} alt="Celebración" className="rounded-full mx-auto shadow-lg" />
-
           ) : (
             <img src={glasses} alt="Hamburguesa tentadora" className="rounded-full mx-auto shadow-lg" />
           )}
         </div>
-        {!postiveAnswer && (
+
+        {!positiveAnswer && (
           <div>
             <p className="text-2xl font-semibold mb-8 text-shadow">
               ¿Quieres ir a comer conmigo 😁?
@@ -111,10 +119,12 @@ export function BurgerInvitation() {
             </div>
           </div>
         )}
-        {postiveAnswer && (
-           <p className="text-2xl font-semibold mb-8 text-shadow">
-           Ya sabía 😎
-         </p>)}
+
+        {positiveAnswer && (
+          <p className="text-2xl font-semibold mb-8 text-shadow">
+            Ya sabía 😎
+          </p>
+        )}
       </div>
     </div>
   )
