@@ -164,9 +164,9 @@ export function AppleInspiredPortfolioComponent() {
                   </blockquote>
 
                     <div className="mt-4">
-                      <Button variant="outline" size="sm">
-                        Descarga mi CV <ChevronRight className="ml-2 h-4 w-4" />
-                      </Button>
+                    <Button variant="outline" size="sm" onClick={() => window.open('/public/cv.pdf', '_blank')}>
+                      Descarga mi CV <ChevronRight className="ml-2 h-4 w-4" />
+                    </Button>
                     </div>
                   </div>
                 </div>
