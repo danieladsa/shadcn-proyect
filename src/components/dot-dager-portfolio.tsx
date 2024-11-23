@@ -241,28 +241,28 @@ export default function DotDagerPortfolio() {
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-6">
-              <Card className="relative bg-cover bg-black bg-opacity-50 bg-center" style={{ backgroundImage: 'url("../src/assets/este.jpg")' }}>
+              <Card className="relative bg-cover bg-black bg-opacity-50 bg-center" style={{ backgroundImage: 'url("https://res.cloudinary.com/dohtxxlbe/image/upload/v1732378378/este_w5oje0.jpg")' }}>
               <div className="absolute inset-0 bg-black bg-opacity-35"></div> {/* Sombreado negro */}
                   <CardContent className=" relative  flex flex-col items-center justify-center h-full p-6 text-white">
                     <Code size={48} className="mb-4" />
                     <h4 className="text-xl font-semibold">Programming</h4>
                   </CardContent>
                 </Card>
-                <Card className="relative bg-cover bg-black bg-opacity-50 bg-center" style={{ backgroundImage: 'url("../src/assets/cat.jpg")' }}>
+                <Card className="relative bg-cover bg-black bg-opacity-50 bg-center" style={{ backgroundImage: 'url("https://res.cloudinary.com/dohtxxlbe/image/upload/v1732377450/cat_wyrb0q.jpg")' }}>
                   <div className="absolute inset-0 bg-black bg-opacity-50"></div> {/* Sombreado negro */}
                   <CardContent className="relative flex flex-col items-center justify-center h-full p-6 text-white">
                     <Cat size={48} className="mb-4" />
                     <h4 className="text-xl font-semibold">Cats</h4>
                   </CardContent>
                 </Card>
-                <Card className="relative bg-cover bg-black bg-opacity-50 bg-center" style={{ backgroundImage: 'url("../src/assets/guitar.jpg")' }}>
+                <Card className="relative bg-cover bg-black bg-opacity-50 bg-center" style={{ backgroundImage: 'url("https://res.cloudinary.com/dohtxxlbe/image/upload/v1732378381/guitar_ouxaq0.jpg")' }}>
                   <div className="absolute inset-0 bg-black bg-opacity-50"></div> {/* Sombreado negro */}
                   <CardContent className="relative flex flex-col items-center justify-center h-full p-6 text-white">
                     <Music size={48} className="mb-4" />
                     <h4 className="text-xl font-semibold">Guitars</h4>
                   </CardContent>
                 </Card>
-                <Card className="relative bg-cover bg-black bg-opacity-50 bg-center" style={{ backgroundImage: 'url("../src/assets/pepino.jpg")' }}>
+                <Card className="relative bg-cover bg-black bg-opacity-50 bg-center" style={{ backgroundImage: 'url("https://res.cloudinary.com/dohtxxlbe/image/upload/v1732378385/pepino_ykig7p.webp")' }}>
                   <div className="absolute inset-0 bg-black bg-opacity-35"></div> {/* Sombreado negro */}
                   <CardContent className="relative flex flex-col items-center justify-center h-full p-6 text-white">
                     <Leaf size={48} className="mb-4" />
