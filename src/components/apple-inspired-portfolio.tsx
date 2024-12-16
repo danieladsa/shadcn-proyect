@@ -7,6 +7,8 @@ import daniel from '@/assets/daniel.jpg'
 import proyecto1 from '@/assets/proyecto1.jpg'
 import proyecto3 from '@/assets/prepaes.png'
 import proyecto4 from '@/assets/notas.png'
+import proyecto5 from '@/assets/harvard.png'
+import cv from '@/assets/cv.pdf'
 export function AppleInspiredPortfolioComponent() {
   const [activeSection, setActiveSection] = useState('')
 
@@ -31,7 +33,8 @@ export function AppleInspiredPortfolioComponent() {
   type Proyecto = {
     nombre: string;
     descripcion: string;
-    url?: string
+    url?: string;
+    img?: string;
   };
   
   // Crear un arreglo con los proyectos
@@ -39,23 +42,35 @@ export function AppleInspiredPortfolioComponent() {
     {
       nombre: 'Parkeate',
       descripcion: 'Servicio de estacionamientos por minuto.',
-      url: 'https://www.parkeateapp.com/home'
+      url: 'https://www.parkeateapp.com/home',
+      img: proyecto1
     },
     {
       nombre: 'Simple Kanban •',
       descripcion: 'To do interactivo con drag and drop',
-      url: 'https://simplekanbanfree.netlify.app/'
+      url: 'https://simplekanbanfree.netlify.app/',
+      img: proyecto2
+    },
+    {
+      nombre: 'Harvard CV app',
+      descripcion: 'Aplicación web para generar curriculums con el formato harvard.',
+      url: 'https://gzmpx5t73vji81md.vercel.app/',
+      img: proyecto5
     },
     {
       nombre: 'PrePAES',
       descripcion: 'Aplicación web para preparar la PAES de matemáticas.',
-      url: 'https://prepaesbeta.netlify.app/'
+      url: 'https://prepaesbeta.netlify.app/',
+      img: proyecto3
     },
+    
     {
       nombre: 'Notas Dinámicas.',
       descripcion: 'Notas dinámicas con frente y back con solo HTML, CSS y JS',
-      url: 'https://dynamicnotes.netlify.app/'
+      url: 'https://dynamicnotes.netlify.app/',
+      img: proyecto4
     },
+    
   ];
 
   return (
@@ -164,7 +179,7 @@ export function AppleInspiredPortfolioComponent() {
                   </blockquote>
 
                     <div className="mt-4">
-                    <Button variant="outline" size="sm" onClick={() => window.open('/public/cv.pdf', '_blank')}>
+                    <Button variant="outline" size="sm" onClick={() => window.open(cv, '_blank')}>
                       Descarga mi CV <ChevronRight className="ml-2 h-4 w-4" />
                     </Button>
                     </div>
@@ -190,7 +205,7 @@ export function AppleInspiredPortfolioComponent() {
                 >
                   <div className="aspect-w-16 aspect-h-9">
                     <img
-                      src={index  === 1 ? proyecto2 : index === 2 ? proyecto3 : index === 3 ? proyecto4 : proyecto1}
+                      src={project.img}
                       alt={`Proyecto ${project}`}
                       className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
                     />
