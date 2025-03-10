@@ -9,7 +9,7 @@ import { CheckCircle, Clock, Users, Brain, Code, Lightbulb, Heart, Gamepad, Zap,
 
 export default function CursoIAProgramacion() {
   const [activeTab, setActiveTab] = useState("overview")
-
+  console.log(activeTab)
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
