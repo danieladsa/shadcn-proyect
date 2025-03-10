@@ -17,18 +17,18 @@ export default function CursoIAProgramacion() {
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
           <div className="space-y-4">
             <Badge className="mb-2 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white hover:from-violet-700 hover:to-fuchsia-700">
-              ¡Nuevo Curso!
+              ¡Nuevo Taller!
             </Badge>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-fuchsia-600">
               IA y Programación Web: <span className="block">Creando el Futuro</span>
             </h1>
             <p className="text-xl text-slate-700 dark:text-slate-300">
-              Propuesta de curso para incentivar a jóvenes a aprender programación
+              Propuesta de taller para incentivar a jóvenes a aprender programación
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <div className="flex items-center gap-1.5 text-sm bg-white/80 dark:bg-slate-800/80 px-3 py-1.5 rounded-full shadow-sm">
                 <Clock className="h-4 w-4 text-violet-600" />
-                <span>3 meses (4-6 hrs/semana)</span>
+                <span>3 meses (2-4 hrs/semana)</span>
               </div>
               <div className="flex items-center gap-1.5 text-sm bg-white/80 dark:bg-slate-800/80 px-3 py-1.5 rounded-full shadow-sm">
                 <Users className="h-4 w-4 text-violet-600" />
@@ -83,11 +83,11 @@ export default function CursoIAProgramacion() {
               <div className="md:col-span-2 space-y-6">
                 <div>
                   <h2 className="text-2xl font-bold mb-4 text-violet-800 dark:text-violet-300">
-                    ¿De qué trata este curso?
+                    ¿De qué trata este taller?
                   </h2>
                   <p className="text-slate-700 dark:text-slate-300 text-lg">
-                    Curso dirigido a estudiantes de educación media, diseñado para brindar una introducción previa a la
-                    informática. A lo largo del curso, los participantes aprenderán conceptos básicos de programación
+                    Taller dirigido a estudiantes de educación media, diseñado para brindar una introducción previa a la
+                    informática. A lo largo del taller, los participantes aprenderán conceptos básicos de programación
                     web y descubrirán cómo la inteligencia artificial puede mejorar sus habilidades como
                     desarrolladores.
                   </p>
@@ -126,7 +126,7 @@ export default function CursoIAProgramacion() {
 
               <Card className="bg-gradient-to-br from-white to-violet-50 dark:from-slate-900 dark:to-violet-950 border-violet-200 dark:border-violet-800 shadow-lg">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-violet-800 dark:text-violet-300">Detalles del curso</CardTitle>
+                  <CardTitle className="text-violet-800 dark:text-violet-300">Detalles del taller</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
@@ -171,7 +171,7 @@ export default function CursoIAProgramacion() {
 
           <TabsContent value="modules" className="pt-6 pb-8">
             <h2 className="text-2xl font-bold mb-6 text-violet-800 dark:text-violet-300">
-              Estructura del curso (3 meses)
+              Estructura del taller (3 meses)
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="border-violet-200 dark:border-violet-800 overflow-hidden bg-white dark:bg-slate-900 hover:shadow-md transition-shadow">
@@ -331,7 +331,7 @@ export default function CursoIAProgramacion() {
                       <Brain className="h-5 w-5 text-pink-500 shrink-0" />
                       <span>
                         Reflexionaremos sobre cómo nuestros proyectos pueden ayudar a resolver problemas reales y qué
-                        hemos aprendido durante el curso
+                        hemos aprendido durante el taller
                       </span>
                     </li>
                   </ul>
