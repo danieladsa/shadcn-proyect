@@ -131,7 +131,7 @@ export default function CursoIAProgramacion() {
                 <CardContent className="space-y-4">
                   <div>
                     <h4 className="font-medium mb-1 text-violet-700 dark:text-violet-400">Duración</h4>
-                    <p className="text-slate-700 dark:text-slate-300">3 meses (4-6 horas semanales)</p>
+                    <p className="text-slate-700 dark:text-slate-300">3 meses (2-4 horas semanales)</p>
                   </div>
                   <div>
                     <h4 className="font-medium mb-1 text-violet-700 dark:text-violet-400">Para quién es</h4>
