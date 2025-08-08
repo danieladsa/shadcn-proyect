@@ -186,7 +186,7 @@ export function AppleInspiredPortfolioComponent() {
       <motion.img
         src={daniel}
         alt="Daniel Duran"
-        className="w-64 h-64 md:w-72 md:h-72 rounded-full bg-blue-500/30 object-cover shadow-xl mx-auto"
+        className="w-64 h-64 md:w-72 md:h-72 rounded-full bg-blue-200/30 object-cover shadow-xl mx-auto"
         initial={{ opacity: 0, x: -50 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
@@ -274,7 +274,6 @@ export function AppleInspiredPortfolioComponent() {
                   outline: "none",
                   position: "relative",
                 }}
-                as={motion.div}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
