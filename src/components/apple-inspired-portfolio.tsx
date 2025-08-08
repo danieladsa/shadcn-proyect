@@ -149,7 +149,7 @@ export function AppleInspiredPortfolioComponent() {
               </Button>
             </div>
             <div className="flex justify-center space-x-4">
-              <Button variant="outline" size="icon" className="w-10 h-10 rounded-full" onClick={() => window.open('https://www.linkedin.com/in/daniel-duran-6788382b7/', '_blank')}>
+              <Button variant="outline" size="icon" className="w-10 h-10 rounded-full" onClick={() => window.open('https://www.linkedin.com/in/daniel-durán-s/', '_blank')}>
                 <Linkedin className="h-5 w-5" />
               </Button>
               <Button variant="outline" size="icon" className="w-10 h-10 rounded-full" onClick={() => window.open('https://github.com/danieladsa', '_blank')}>
