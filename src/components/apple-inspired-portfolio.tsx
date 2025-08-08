@@ -5,7 +5,7 @@ import { loadFull } from "tsparticles"
 import { ChevronRight, Linkedin, Github, Instagram, Mail, Download } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import proyecto2 from '@/assets/kanban.png'
-import daniel from '@/assets/daniel.jpg'
+import daniel from '@/assets/daniel.png'
 import proyecto1 from '@/assets/proyecto1.jpg'
 import proyecto3 from '@/assets/prepaes.png'
 import proyecto4 from '@/assets/notas.png'
@@ -13,11 +13,13 @@ import proyecto5 from '@/assets/harvard.png'
 import proyecto6 from '@/assets/subcargo.png'
 import proyecto7 from '@/assets/minecraft.png'
 import proyecto8 from '@/assets/deseos.png'
+import star from '@/assets/star.gif'
 import cv from '@/assets/cv.pdf'
 
 export function AppleInspiredPortfolioComponent() {
   const [activeSection, setActiveSection] = useState('')
   const [isMobile, setIsMobile] = useState(false);
+ const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   // Inicializar motor de partículas
   const particlesInit = useCallback(async (engine: any) => {
     await loadFull(engine)
@@ -111,7 +113,7 @@ export function AppleInspiredPortfolioComponent() {
                 size: { value: { min: 1, max: 4 } },
               },
             }}
-            className="absolute inset-0 z-0"
+            className="fixed inset-0 z-0 pointer-events-none"
           />
 
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-purple-700/30 z-10 pointer-events-none" />
@@ -160,78 +162,153 @@ export function AppleInspiredPortfolioComponent() {
               </Button>
             </div>
           </motion.div>
+                  <motion.div
+    className="absolute -bottom-7 left-0 z-10"
+    initial={{ x: '1300%' }}
+    animate={{ x: '-50%' }}
+    transition={{ duration: 12, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
+    style={{ width: 160 }} // para que el contenedor tenga ancho fijo y el movimiento sea consistente
+  >
+    <img
+      src={star}
+      alt="star caminando"
+      className="w-full object-contain select-none pointer-events-none scale-x-[-1]"
+      draggable={false}
+    />
+  </motion.div>
         </section>
+<section id="sobre-mi" className="py-24 bg-gray-50 relative z-30 overflow-hidden">
+  <div className="container mx-auto px-6 md:px-12 max-w-6xl">
+    <h2 className="text-4xl font-bold mb-16 text-center text-gray-900">Sobre mí</h2>
 
-      <section id="sobre-mi" className="py-24 bg-gray-100 relative z-30">
-  <div className="container mx-auto px-6 md:px-12 max-w-3xl">
-    <h2 className="text-4xl font-bold mb-12 text-center text-gray-900">Sobre mí</h2>
-
-    <div className="bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center md:flex-row md:items-start gap-8">
-      
-      <img 
-        src={daniel} 
-        alt="Foto de Daniel Duran"
-        className="w-40 h-40 rounded-full object-cover border-4 border-blue-500 shadow-lg"
-        loading="lazy"
+    <div className="grid md:grid-cols-2 gap-12 items-center">
+      {/* FOTO */}
+      <motion.img
+        src={daniel}
+        alt="Daniel Duran"
+        className="w-64 h-64 md:w-72 md:h-72 rounded-full bg-blue-500/30 object-cover shadow-xl mx-auto"
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
       />
 
-      <div className="text-center md:text-left">
-        <p className="text-gray-700 text-lg leading-relaxed mb-8">
-          Soy Ingeniero Informático y, desde que descubrí el desarrollo web, quedé completamente atrapado en este campo.
+      {/* TEXTO */}
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <p className="text-lg text-gray-700 leading-relaxed mb-6">
+          Soy Ingeniero Informático egresado de la PUCV y desde que descubrí el desarrollo web quedé atrapado por completo.
         </p>
-
-        <blockquote className="italic text-gray-800 border-l-4 border-blue-400 pl-6 mb-8 text-lg font-semibold">
+        <blockquote className="italic text-gray-800 border-l-4 border-blue-400 pl-6 mb-6 text-lg font-semibold">
           “Hay que trabajar, hay que aprender, hay que comer, hay que descansar y también hay que jugar.”
-          <footer className="mt-3 text-gray-600 font-normal not-italic">— Maestro Roshi</footer>
+          <footer className="mt-2 text-gray-600 font-normal not-italic">— Maestro Roshi</footer>
         </blockquote>
-
         <Button
-          variant="default"
-          size="default"
-          className="bg-blue-600 text-white hover:bg-blue-700 transition"
+          className="bg-blue-600 text-white hover:bg-blue-700"
           onClick={() => window.open(cv, '_blank')}
         >
           Descargar CV <ChevronRight className="ml-2 h-5 w-5" />
         </Button>
+      </motion.div>
+       
+    </div>
+
+    {/* EXPERIENCIA */}
+    <div className="mt-20">
+      <h3 className="text-2xl font-bold mb-8 text-gray-900 text-center md:text-left">Experiencia</h3>
+      <div className="space-y-8">
+        {[
+          { puesto: "Full Stack Developer", empresa: "Subcargo", periodo: "2024 - Presente", desc: "Desarrollo de plataforma logística y optimización de procesos." },
+          { puesto: "Frontend Developer", empresa: "Parkeate", periodo: "2023 - 2024", desc: "Implementación de UI y mejoras de rendimiento en app de estacionamientos." },
+          { puesto: "Freelance", empresa: "Proyectos varios", periodo: "2021 - 2023", desc: "Aplicaciones web y móviles para clientes de diferentes rubros." },
+        ].map((exp, i) => (
+          <motion.div
+            key={i}
+            className="bg-white p-6 rounded-xl shadow-lg border-l-4 border-blue-500"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: i * 0.1 }}
+            viewport={{ once: true }}
+          >
+            <h4 className="text-xl font-semibold">{exp.puesto}</h4>
+            <p className="text-sm text-gray-500">{exp.empresa} • {exp.periodo}</p>
+            <p className="mt-3 text-gray-700">{exp.desc}</p>
+          </motion.div>
+        ))}
       </div>
     </div>
   </div>
+
 </section>
 
-        <section id="proyectos" className="py-20 bg-white z-30 relative">
-          <div className="container mx-auto lg:px-40 px-4">
-               <h2 className="text-4xl font-bold mb-12 text-center text-gray-900">Algunos proyectos destacados</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {proyectos.map((project, index) => (
-                <motion.div
-                  key={index}
-                  className="group relative overflow-hidden rounded-2xl shadow-lg"
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="aspect-video min-h-[200px]">
-                    <img
-                      src={project.img}
-                      alt={`Proyecto ${project.nombre}`}
-                      className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <h3 className="text-2xl font-bold mb-2">{project.nombre}</h3>
-                    <p className="text-sm mb-4">{project.descripcion}</p>
-                    <Button variant="outline" className="text-gray-900 border-white bg-white hover:bg-white hover:text-gray-900" onClick={() => window.open(project.url)}>
-                      Ver más <ChevronRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+  <section id="proyectos" className="relative min-h-screen py-24 text-white">
+     
+      <div className="container max-w-6xl mx-auto px-6">
+       <h2 className="text-4xl font-bold mb-16 text-center text-gray-900">Proyectos destacados</h2>
 
+
+        <div className="relative z-30 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+          {proyectos.map((project, i) => {
+            const isHovered = hoveredIndex === i
+            return (
+              <motion.div
+                key={project.nombre}
+                onHoverStart={() => setHoveredIndex(i)}
+                onHoverEnd={() => setHoveredIndex(null)}
+                onFocus={() => setHoveredIndex(i)}
+                onBlur={() => setHoveredIndex(null)}
+                tabIndex={0}
+                className="relative z-30 rounded-xl border-2 border-transparent cursor-pointer shadow-lg transition-transform transform will-change-transform bg-gray-50"
+                style={{
+                  borderImageSlice: 1,
+                  boxShadow: isHovered
+                    ? "0 0 15px 2px rgba(59,130,246,0.6), 0 0 20px 2px rgba(147,51,234,0.5), 0 0 30px 5px rgba(6,182,212,0.4)"
+                    : "0 5px 15px rgba(0,0,0,0.3)",
+                  scale: isHovered ? 1.02 : 1,
+                  zIndex: 30,
+                  transition: "all 0.3s ease",
+                  outline: "none",
+                  position: "relative",
+                }}
+                as={motion.div}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                onClick={() => project.url && window.open(project.url, "_blank")}
+              >
+                <img
+                  src={project.img}
+                  alt={project.nombre}
+                  className="w-full h-48 rounded-t-xl object-cover"
+                  loading="lazy"
+                  draggable={false}
+                />
+                <div className="p-5 relative z-30">
+                  <h3 className="text-xl text-gray-900 font-semibold mb-2">{project.nombre}</h3>
+                  <p className="text-gray-800 text-sm line-clamp-3 mb-4 relative z-30">{project.descripcion}</p>
+                  <motion.button
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 10 }}
+                    transition={{ duration: 0.3 }}
+                    className=" flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r bg-gray-900 text-white font-semibold shadow-lg hover:brightness-110 focus:outline-none focus:ring-4 cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      if (project.url) window.open(project.url, "_blank")
+                    }}
+                  >
+                    Ver proyecto <ChevronRight />
+                  </motion.button>
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
+      </div>
+    </section>
         <section id="habilidades" className="py-20 bg-gray-50 relative z-30">
           <div className="container mx-auto px-4 lg:px-40">
             <h2 className="text-4xl  font-bold mb-12 text-center">Habilidades</h2>
