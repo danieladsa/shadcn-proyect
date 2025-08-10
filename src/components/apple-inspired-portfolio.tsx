@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import Particles from "react-tsparticles"
 import { loadFull } from "tsparticles"
-import { ChevronRight, Linkedin, Github, Instagram, Mail, Download } from 'lucide-react'
+import { ChevronRight, Linkedin, Github, Instagram, Mail, Download, Home, User, Folder, Cpu } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import proyecto2 from '@/assets/kanban.png'
 import daniel from '@/assets/daniel.png'
@@ -14,12 +14,203 @@ import proyecto6 from '@/assets/subcargo.png'
 import proyecto7 from '@/assets/minecraft.png'
 import proyecto8 from '@/assets/deseos.png'
 import star from '@/assets/star.gif'
+import spiderman from '@/assets/spiderman.png'
 import cv from '@/assets/cv.pdf'
+import javascript from '@/assets/javascript.png'
+import angularjs from '@/assets/angularjs.png'
+import react from '@/assets/react.png'
+import nodejs from '@/assets/nodejs.png'
+import python from '@/assets/python.png'
+import sql from '@/assets/sql.png'
+import git from '@/assets/git.png'        
 
 export function AppleInspiredPortfolioComponent() {
   const [activeSection, setActiveSection] = useState('')
   const [isMobile, setIsMobile] = useState(false);
  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+ const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(null)
+ type Question = {
+  question: string,
+  options: string[],
+  correctIndex: number
+}
+
+// Definimos preguntas por habilidad
+const quizData: Record<string, Question[]> = {
+  JavaScript: [
+    {
+      question: "¿Qué es una closure en JavaScript?",
+      options: [
+        "Una función que recuerda su contexto léxico",
+        "Una variable global",
+        "Un tipo de dato primitivo",
+      ],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Para qué sirve 'use strict'?",
+      options: [
+        "Evitar errores silenciosos y malas prácticas",
+        "Hacer que el código corra más rápido",
+        "Declarar variables globales automáticamente",
+      ],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Cuál es el resultado de '2' + 2 en JavaScript?",
+      options: ["'4'", "'22'", "4"],
+      correctIndex: 1,
+    },
+  ],
+  React: [
+    {
+      question: "¿Qué es un Hook en React?",
+      options: [
+        "Una función para manejar estado y ciclo de vida en componentes funcionales",
+        "Un componente especial de React",
+        "Una librería externa",
+      ],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Qué hace useState?",
+      options: [
+        "Permite agregar estado a componentes funcionales",
+        "Maneja rutas en React",
+        "Renderiza JSX",
+      ],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Qué es JSX?",
+      options: ["Una sintaxis para escribir HTML en JavaScript", "Un tipo de CSS", "Una base de datos"],
+      correctIndex: 0,
+    },
+  ],
+  Nodejs: [
+    {
+      question: "¿Qué es Node.js?",
+      options: [
+        "Un entorno para ejecutar JavaScript en el servidor",
+        "Una librería para el frontend",
+        "Un sistema operativo",
+      ],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Qué módulo se usa para manejar archivos en Node.js?",
+      options: ["fs", "http", "path"],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Qué es npm?",
+      options: ["Un gestor de paquetes para Node.js", "Un framework", "Un editor de código"],
+      correctIndex: 0,
+    },
+  ],
+  Python: [
+    {
+      question: "¿Cómo se declara una función en Python?",
+      options: ["def mi_funcion():", "function mi_funcion(){}", "func mi_funcion()"],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Para qué sirve la indentación en Python?",
+      options: ["Define bloques de código", "No tiene importancia", "Solo es estilo"],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Cuál es la extensión usual de archivos Python?",
+      options: [".py", ".js", ".java"],
+      correctIndex: 0,
+    },
+  ],
+  SQL: [
+    {
+      question: "¿Qué comando se usa para obtener datos en SQL?",
+      options: ["SELECT", "INSERT", "UPDATE"],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Qué significa SQL?",
+      options: [
+        "Structured Query Language",
+        "Simple Query Language",
+        "Sequential Query List",
+      ],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Cuál sentencia elimina datos?",
+      options: ["DELETE", "DROP", "REMOVE"],
+      correctIndex: 0,
+    },
+  ],
+  Git: [
+    {
+      question: "¿Qué comando crea un repositorio Git nuevo?",
+      options: ["git init", "git clone", "git commit"],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Qué hace 'git commit'?",
+      options: ["Guarda cambios en el historial", "Descarga repositorio", "Actualiza remoto"],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Qué comando envía los cambios a un remoto?",
+      options: ["git push", "git pull", "git fetch"],
+      correctIndex: 0,
+    },
+  ],
+  Angular: [
+    {
+      question: "¿Qué es Angular?",
+      options: ["Un framework para aplicaciones web", "Un lenguaje de programación", "Una base de datos"],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Qué archivo define un componente en Angular?",
+      options: [".ts", ".html", ".css"],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Qué es un servicio en Angular?",
+      options: [
+        "Una clase para lógica y datos compartidos",
+        "Una librería externa",
+        "Un tipo de componente",
+      ],
+      correctIndex: 0,
+    },
+  ],
+  Astro: [
+    {
+      question: "¿Qué es Astro?",
+      options: [
+        "Un framework para crear sitios web estáticos",
+        "Un sistema operativo",
+        "Un lenguaje de programación",
+      ],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Qué lenguaje usa Astro para crear componentes?",
+      options: ["JSX, TSX y HTML", "PHP", "Python"],
+      correctIndex: 0,
+    },
+    {
+      question: "¿Qué ventaja tiene Astro?",
+      options: [
+        "Entrega sitios con menos JavaScript en el cliente",
+        "Es solo para backend",
+        "No usa HTML",
+      ],
+      correctIndex: 0,
+    },
+  ],
+};
+
   // Inicializar motor de partículas
   const particlesInit = useCallback(async (engine: any) => {
     await loadFull(engine)
@@ -60,32 +251,83 @@ export function AppleInspiredPortfolioComponent() {
     { nombre: 'PrePAES', descripcion: 'Aplicación web para preparar la PAES de matemáticas.', url: 'https://prepaesbeta.netlify.app/', img: proyecto3 },
     { nombre: 'Notas Dinámicas', descripcion: 'Notas dinámicas con frente y back con solo HTML, CSS y JS', url: 'https://dynamicnotes.netlify.app/', img: proyecto4 },
   ]
+ const [quizOpen, setQuizOpen] = useState(false)
+  const [currentSkill, setCurrentSkill] = useState<string | null>(null)
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [score, setScore] = useState(0)
+  const [answered, setAnswered] = useState(false)
 
+  // Cuando hacen clic en una habilidad
+  function openQuiz(skill: string) {
+    setCurrentSkill(skill)
+    setCurrentQuestionIndex(0)
+    setScore(0)
+    setAnswered(false)
+    setQuizOpen(true)
+    setQuizFinished(false)
+  }
+
+  function answerQuestion(optionIndex: number) {
+  setSelectedOptionIndex(optionIndex)
+  setAnswered(true)
+}
+
+  function nextQuestion() {
+  if (!answered) return // no avanzar si no respondió
+  if (currentSkill === null) return
+
+  const totalQuestions = quizData[currentSkill].length
+
+  if (currentQuestionIndex + 1 < totalQuestions) {
+    setCurrentQuestionIndex(currentQuestionIndex + 1)
+    setAnswered(false) // reset para siguiente pregunta
+  } else {
+    // Terminó el quiz
+    setQuizFinished(true)
+  }
+}
+  const [quizFinished, setQuizFinished] = useState(false)
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md">
-        <nav className="container mx-auto px-4 py-4">
-          <ul className="flex justify-center space-x-8">
-            {[
-              { label: 'Inicio', id: 'inicio' },
-              { label: 'Sobre mí', id: 'sobre-mi' },
-              { label: 'Proyectos', id: 'proyectos' },
-              { label: 'Habilidades', id: 'habilidades' },
-            ].map((item) => (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  className={`text-sm font-medium transition-colors hover:text-blue-500 ${activeSection === item.id ? 'text-blue-500' : 'text-gray-900'}`}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </header>
+ <header
+  className={`
+    fixed z-50 
+    top-4 left-1/2 -translate-x-1/2
+    flex justify-center 
+    md:top-1/2 md:right-10 md:left-auto md:-translate-x-0 md:-translate-y-1/2
+  `}
+>
+  <nav
+    className="
+      flex flex-row items-center space-x-4 
+      md:flex-col md:space-x-0 md:space-y-4
+      bg-slate-50/70 backdrop-blur-lg p-2 rounded-full shadow-lg border
+    "
+  >
+    {[
+      { id: 'inicio', icon: <Home className="w-5 h-5" /> },
+      { id: 'sobre-mi', icon: <User className="w-5 h-5" /> },
+      { id: 'proyectos', icon: <Folder className="w-5 h-5" /> },
+      { id: 'habilidades', icon: <Cpu className="w-5 h-5" /> },
+      { id: 'contacto', icon: <Mail className="w-5 h-5" /> },
+    ].map((item) => (
+      <a
+        key={item.id}
+        href={`#${item.id}`}
+        className={`group flex items-center justify-center p-2 rounded-2xl transition-all duration-300 ${
+          activeSection === item.id
+            ? 'bg-slate-300/40 rounded-full'
+            : 'text-gray-700'
+        }`}
+      >
+        {item.icon}
+      </a>
+    ))}
+  </nav>
+</header>
 
-      <main className="pt-16">
+
+      <main >
         <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
           <Particles
             id="tsparticles"
@@ -162,11 +404,13 @@ export function AppleInspiredPortfolioComponent() {
               </Button>
             </div>
           </motion.div>
-                  <motion.div
+                
+  {isMobile ? (
+             <motion.div
     className="absolute -bottom-7 left-0 z-10"
-    initial={{ x: '1300%' }}
-    animate={{ x: '-50%' }}
-    transition={{ duration: 12, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
+     initial={{ x:'100%'  }}
+  animate={{ x: '-50%' }}
+    transition={{  duration: 6 , repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
     style={{ width: 160 }} // para que el contenedor tenga ancho fijo y el movimiento sea consistente
   >
     <img
@@ -176,8 +420,25 @@ export function AppleInspiredPortfolioComponent() {
       draggable={false}
     />
   </motion.div>
+  ) : (
+    <motion.div
+      className="absolute -bottom-7 left-0 z-10"
+      initial={{ x: '1300%' }}
+      animate={{ x: '-50%' }}
+      transition={{ duration:  12, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
+      style={{ width: 160 }} // para que el contenedor tenga ancho fijo y el movimiento sea consistente
+    >
+      <img
+        src={star}
+        alt="star caminando"
+        className="w-full object-contain select-none pointer-events-none scale-x-[-1]"
+        draggable={false}
+      />
+    </motion.div>
+  )}
         </section>
 <section id="sobre-mi" className="py-24 bg-gray-50 relative z-30 overflow-hidden">
+  
   <div className="container mx-auto px-6 md:px-12 max-w-6xl">
     <h2 className="text-4xl font-bold mb-16 text-center text-gray-900">Sobre mí</h2>
 
@@ -246,7 +507,15 @@ export function AppleInspiredPortfolioComponent() {
 </section>
 
   <section id="proyectos" className="relative min-h-screen py-24 text-white">
-     
+      <motion.img
+    src={spiderman}
+    alt="Spiderman colgando"
+    className="absolute top-0 left-16 w-24 z-20 pointer-events-none select-none"
+    initial={{ y: -170 }}
+    animate={{ y: [ -170, -20,-20, -170] }} // baja y sube
+    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+    draggable={false}
+  />
       <div className="container max-w-6xl mx-auto px-6">
        <h2 className="text-4xl font-bold mb-16 text-center text-gray-900">Proyectos destacados</h2>
 
@@ -289,18 +558,7 @@ export function AppleInspiredPortfolioComponent() {
                 <div className="p-5 relative z-30">
                   <h3 className="text-xl text-gray-900 font-semibold mb-2">{project.nombre}</h3>
                   <p className="text-gray-800 text-sm line-clamp-3 mb-4 relative z-30">{project.descripcion}</p>
-                  <motion.button
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 10 }}
-                    transition={{ duration: 0.3 }}
-                    className=" flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r bg-gray-900 text-white font-semibold shadow-lg hover:brightness-110 focus:outline-none focus:ring-4 cursor-pointer"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      if (project.url) window.open(project.url, "_blank")
-                    }}
-                  >
-                    Ver proyecto <ChevronRight />
-                  </motion.button>
+    
                 </div>
               </motion.div>
             )
@@ -308,25 +566,166 @@ export function AppleInspiredPortfolioComponent() {
         </div>
       </div>
     </section>
-        <section id="habilidades" className="py-20 bg-gray-50 relative z-30">
-          <div className="container mx-auto px-4 lg:px-40">
-            <h2 className="text-4xl  font-bold mb-12 text-center">Habilidades</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {['JavaScript', 'React', 'Node.js', 'Python', 'SQL', 'Git', 'Angular', 'Astro'].map((skill, index) => (
-                <motion.div
-                  key={skill}
-                  className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
+   <section
+  id="habilidades"
+  className=" py-24 bg-black bg-gradient-to-br from-blue-500/30 to-purple-700/30"
+>
+  <div className="container mx-auto px-4 lg:px-20 max-w-4xl">
+  <h2 className="text-4xl font-bold text-white mb-12 text-center">Habilidades</h2>
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-y-8 gap-x-6 pt-10 justify-items-center mx-auto">
+    {[
+      { name: "JavaScript", icon: javascript },
+      { name: "React", icon: react },
+      { name: "Nodejs", icon: nodejs },
+      { name: "Python", icon: python },
+      { name: "SQL", icon: sql },
+      { name: "Git", icon: git },
+      { name: "Angular", icon: angularjs },
+    ].map((skill, index) => (
+      <motion.div
+        key={skill.name}
+        onClick={() => openQuiz(skill.name)}
+        className="group relative flex flex-col items-center justify-center w-24 h-24 sm:w-32 sm:h-32 md:w-44 md:h-44 rounded-xl   hover:shadow-lg transition-all cursor-pointer p-3 text-white bg-transparent"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: index * 0.07 }}
+        viewport={{ once: true }}
+        whileHover={{ scale: 1.05 }}
+      >
+        <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-cyan-400/60 transition-all pointer-events-none"></div>
+
+        <div className="flex items-center justify-center w-full h-full">
+          <img
+            src={skill.icon}
+            alt={skill.name}
+            className="max-w-20 max-h-20 object-fill"
+            draggable={false}
+          />
+        </div>
+        <h3 className="mt-2 text-sm sm:text-lg font-semibold select-none text-center">{skill.name}</h3>
+      </motion.div>
+    ))}
+  </div>
+</div>
+
+</section>
+
+
+   {quizOpen && currentSkill && (
+  <motion.div
+    className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4 backdrop-blur-sm"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+  >
+    <motion.div
+      className="relative max-w-md w-full bg-black/50 rounded-xl p-6 shadow-lg"
+      initial={{ scale: 0.95, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ type: "spring", stiffness: 150, damping: 20 }}
+    >
+      {!quizFinished ? (
+        <>
+          <h3 className="text-3xl font-semibold text-white mb-5 select-none">
+            Quiz de {currentSkill}
+          </h3>
+
+          <p className="text-white text-lg mb-6 font-medium">
+            {quizData[currentSkill][currentQuestionIndex].question}
+          </p>
+
+          <div className="flex flex-col gap-3 mb-6">
+            {quizData[currentSkill][currentQuestionIndex].options.map((option, i) => {
+              const correct = i === quizData[currentSkill][currentQuestionIndex].correctIndex
+              const isAnswered = answered
+              const selected = isAnswered && correct
+              const wrongSelected = isAnswered && !correct && i === selectedOptionIndex
+              return (
+                <button
+                  key={i}
+                  onClick={() => answerQuestion(i)}
+                  disabled={isAnswered}
+                  className={`
+                    rounded-md py-2 px-4 text-left text-white text-base font-medium transition
+                    ${
+                      !isAnswered
+                        ? "bg-black/40 hover:bg-blue-600"
+                        : selected
+                        ? "bg-blue-700"
+                        : wrongSelected
+                        ? "bg-red-600"
+                        : "bg-black/30 text-gray-300 cursor-default"
+                    }
+                  `}
                 >
-                  <span className="text-lg font-medium text-gray-800">{skill}</span>
-                </motion.div>
-              ))}
-            </div>
+                  {option}
+                </button>
+              )
+            })}
           </div>
-        </section>
+
+          {/* Barra de progreso */}
+          <div className="flex justify-center gap-2 mb-6">
+            {quizData[currentSkill].map((_, idx) => (
+              <span
+                key={idx}
+                className={`block w-3 h-3 rounded-full transition-colors
+                  ${
+                    idx === currentQuestionIndex
+                      ? "bg-blue-400"
+                      : idx < currentQuestionIndex
+                      ? "bg-blue-700"
+                      : "bg-white/50"
+                  }
+                `}
+              />
+            ))}
+          </div>
+
+          <div className="flex justify-between items-center">
+            <button
+              onClick={() => {
+                setQuizOpen(false)
+                setCurrentSkill(null)
+              }}
+              className="text-white hover:text-white bg-black/30 transition font-medium"
+            >
+              Cancelar
+            </button>
+
+            <button
+              onClick={nextQuestion}
+              disabled={!answered}
+              className={`
+                px-5 py-2 rounded-md font-semibold text-white transition
+                ${!answered ? "bg-blue-900/50 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"}
+              `}
+            >
+              {currentQuestionIndex + 1 < quizData[currentSkill].length ? "Siguiente" : "Finalizar"}
+            </button>
+          </div>
+        </>
+      ) : (
+        // Contenido al terminar el quiz
+        <div className="text-center text-white">
+          <h3 className="text-3xl font-semibold mb-4">¡Felicidades!</h3>
+          <p className="mb-6 text-lg">Has terminado el quiz de {currentSkill}.</p>
+          <button
+            onClick={() => {
+              setQuizOpen(false)
+              setCurrentSkill(null)
+            }}
+            className="px-6 py-3 bg-blue-600 rounded-md font-semibold hover:bg-blue-700 transition"
+          >
+            Cerrar
+          </button>
+        </div>
+      )}
+    </motion.div>
+  </motion.div>
+)}
+
+
 
         <section id="contacto" className="py-20 bg-white relative z-30">
           <div className="container mx-auto px-4">
@@ -361,6 +760,7 @@ export function AppleInspiredPortfolioComponent() {
             </div>
           </div>
         </section>
+
       </main>
 
       <footer className="bg-gray-100 py-8">
