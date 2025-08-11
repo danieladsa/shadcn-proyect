@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
-import dinoImg from "@/assets/trex.png"; // imagen dino quieto (salto)
 import dinoRun1 from "@/assets/dino_run1.png"; // corrida frame 1
 import dinoRun2 from "@/assets/dino_run2.png"; // corrida frame 2
 import cactusImg from "@/assets/cactus.png";
