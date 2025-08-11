@@ -231,14 +231,57 @@ const quizData: Record<string, Question[]> = {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-  useEffect(() => {
-    const updateIsMobile = () => {
-      setIsMobile(window.innerWidth < 768); // menos de 768px es móvil/tablet
-    };
-    updateIsMobile();
-    window.addEventListener("resize", updateIsMobile);
-    return () => window.removeEventListener("resize", updateIsMobile);
-  }, []);
+// Reemplaza tu useEffect actual con este:
+useEffect(() => {
+  const checkMobile = () => {
+    const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+    
+    // Lista de palabras clave para detectar dispositivos móviles
+    const mobileKeywords = [
+      /Android/i,
+      /webOS/i,
+      /iPhone/i,
+      /iPad/i,
+      /iPod/i,
+      /BlackBerry/i,
+      /Windows Phone/i
+    ];
+    
+    const isMobileDevice = mobileKeywords.some(keyword => userAgent.match(keyword));
+    const isSmallScreen = window.innerWidth <= 768;
+    
+    setIsMobile(isMobileDevice || isSmallScreen);
+  };
+
+  // Verificar al montar
+  checkMobile();
+  
+  // Verificar en cambios de tamaño
+  window.addEventListener("resize", checkMobile);
+  
+  // Verificar en cambios de orientación (para tablets)
+  window.addEventListener("orientationchange", checkMobile);
+
+  return () => {
+    window.removeEventListener("resize", checkMobile);
+    window.removeEventListener("orientationchange", checkMobile);
+  };
+}, []);
+
+// Para el renderizado condicional de DinoGame, reemplaza:
+{isMobile ? (<DinoGame />) : (
+  <div className="hidden md:block">
+    <DinoGame />
+  </div>
+)}
+
+// Con esta versión más limpia:
+{isMobile && <DinoGame />}
+{!isMobile && (
+  <div className="hidden md:block">
+    <DinoGame />
+  </div>
+)}
 
   type Proyecto = { nombre: string; descripcion: string; url?: string; img?: string }
 
@@ -348,7 +391,10 @@ const quizData: Record<string, Question[]> = {
                 color: { value: ["#3b82f6", "#9333ea", "#06b6d4"] },
                 links: { enable: true, color: "#999", distance: 150 },
                 move: { enable: true, speed: 1 },
-                number: { value: isMobile ? 20 : 60 }, // menos partículas en móvil
+                number: { 
+                  value: isMobile ? 20 : 60, // Partículas iniciales
+                  limit: isMobile ? 40 : 100 // Límite máximo total de partículas
+                },
                 opacity: { value: 0.5 },
                 shape: { type: "circle" },
                 size: { value: { min: 1, max: 4 } },
@@ -758,7 +804,7 @@ const quizData: Record<string, Question[]> = {
               <p className="mt-4 text-gray-600">Correo: danielduran.ads@gmail.com</p>
             </div>
           </div>
-      {isMobile ? (<DinoGame />) : (
+      {!isMobile ? (<DinoGame />) : (
         <div className="hidden md:block">
           <DinoGame />
         </div>
