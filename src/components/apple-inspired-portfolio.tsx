@@ -829,9 +829,7 @@ useEffect(() => {
       </p>
     </div>
 
-      <div className="mt-24 mb-24">
         <DinoGame />
-      </div>
       </div>
 </section>
 
