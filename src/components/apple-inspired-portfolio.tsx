@@ -26,7 +26,7 @@ import git from '@/assets/git.png'
 import DinoGame from './dinoGame'
 
 export function AppleInspiredPortfolioComponent() {
-  const [activeSection, setActiveSection] = useState('')
+  const [activeSection, setActiveSection] = useState('inicio')
   const [isMobile, setIsMobile] = useState(false);
  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
  const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(null)
@@ -219,7 +219,7 @@ const quizData: Record<string, Question[]> = {
   
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['inicio', 'sobre-mi', 'proyectos', 'habilidades']
+      const sections = ['inicio', 'sobre-mi', 'proyectos', 'habilidades', 'contacto']
       const currentSection = sections.find(section => {
         const element = document.getElementById(section)
         if (!element) return false
@@ -331,12 +331,11 @@ useEffect(() => {
   const [quizFinished, setQuizFinished] = useState(false)
   return (
     <div className="min-h-screen bg-white text-gray-900">
- <header
+<header
   className={`
     fixed z-50 
-    top-4 left-1/2 -translate-x-1/2
-    flex justify-center 
-    md:top-1/2 md:right-10 md:left-auto md:-translate-x-0 md:-translate-y-1/2
+    bottom-4 left-1/2 -translate-x-1/2   /* abajo en móvil */
+    md:top-1/2 md:right-10 md:left-auto md:-translate-x-0 md:-translate-y-1/2 /* a la derecha en escritorio */
   `}
 >
   <nav
@@ -453,9 +452,9 @@ useEffect(() => {
   {isMobile ? (
              <motion.div
     className="absolute -bottom-7 left-0 z-10"
-     initial={{ x:'100%'  }}
+     initial={{ x: '500%' }}
   animate={{ x: '-50%' }}
-    transition={{  duration: 6 , repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
+    transition={{  duration:7  , repeat: Infinity , ease: 'linear', repeatType: 'loop' }}
     style={{ width: 160 }} // para que el contenedor tenga ancho fijo y el movimiento sea consistente
   >
     <img
@@ -771,45 +770,71 @@ useEffect(() => {
 )}
 
 
+<section id="contacto" className="py-20 bg-white relative z-30">
+  <div className="container mx-auto px-6 max-w-5xl">
+      <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">Contacto</h2>
+    <div className="text-center">
+      <p className="text-lg mb-10 text-gray-700 max-w-md mx-auto leading-relaxed">
+        ¿Interesado en trabajar juntos? ¡Contáctame!
+      </p>
 
-        <section id="contacto" className="py-20 bg-white relative z-30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-4xl  font-bold mb-12 text-center">Contacto</h2>
-            <div className="max-w-md mx-auto text-center">
-              <p className="text-xl mb-8 text-gray-600">
-                ¿Interesado en trabajar juntos? ¡Contáctame!
-              </p>
-              <div className="flex justify-center space-x-4">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="w-12 h-12"
-                  onClick={() => {
-                    navigator.clipboard.writeText('danielduran.ads@gmail.com')
-                    alert('Correo copiado al portapapeles')
-                  }}
-                >
-                  <Mail className="h-6 w-6" />
-                </Button>
-                <Button variant="outline" size="icon" className="w-12 h-12" onClick={() => window.open('https://www.linkedin.com/in/daniel-duran-6788382b7/', '_blank')}>
-                  <Linkedin className="h-6 w-6" />
-                </Button>
-                <Button variant="outline" size="icon" className="w-12 h-12" onClick={() => window.open('https://github.com/danieladsa', '_blank')}>
-                  <Github className="h-6 w-6" />
-                </Button>
-                <Button variant="outline" size="icon" className="w-12 h-12" onClick={() => window.open('https://www.instagram.com/daniel.ads0/', '_blank')}>
-                  <Instagram className="h-6 w-6" />
-                </Button>
-              </div>
-              <p className="mt-4 text-gray-600">Correo: danielduran.ads@gmail.com</p>
-            </div>
-          </div>
-      {!isMobile ? (<DinoGame />) : (
-        <div className="hidden md:block">
-          <DinoGame />
-        </div>
-      )}
-        </section>
+      <div className="flex justify-center space-x-6 mb-8">
+        <Button
+          variant="outline"
+          size="icon"
+          className="w-14 h-14 rounded-full border-gray-300 hover:border-gray-500 transition-colors"
+          onClick={() => {
+            navigator.clipboard.writeText('danielduran.ads@gmail.com');
+            alert('Correo copiado al portapapeles');
+          }}
+          aria-label="Copiar correo"
+          title="Copiar correo"
+        >
+          <Mail className="h-7 w-7 text-gray-700" />
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          className="w-14 h-14 rounded-full border-gray-300 hover:border-blue-600 transition-colors"
+          onClick={() => window.open('https://www.linkedin.com/in/daniel-duran-6788382b7/', '_blank')}
+          aria-label="LinkedIn"
+          title="LinkedIn"
+        >
+          <Linkedin className="h-7 w-7 text-blue-700" />
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          className="w-14 h-14 rounded-full border-gray-300 hover:border-gray-800 transition-colors"
+          onClick={() => window.open('https://github.com/danieladsa', '_blank')}
+          aria-label="GitHub"
+          title="GitHub"
+        >
+          <Github className="h-7 w-7 text-gray-800" />
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          className="w-14 h-14 rounded-full border-gray-300 hover:border-pink-500 transition-colors"
+          onClick={() => window.open('https://www.instagram.com/daniel.ads0/', '_blank')}
+          aria-label="Instagram"
+          title="Instagram"
+        >
+          <Instagram className="h-7 w-7 text-pink-600" />
+        </Button>
+      </div>
+
+      <p className="text-gray-600 text-sm select-text">
+        Correo: <span className="font-mono">danielduran.ads@gmail.com</span>
+      </p>
+    </div>
+
+      <div className="mt-24 mb-24">
+        <DinoGame />
+      </div>
+      </div>
+</section>
+
 
       </main>
 
