@@ -23,6 +23,7 @@ import nodejs from '@/assets/nodejs.png'
 import python from '@/assets/python.png'
 import sql from '@/assets/sql.png'
 import git from '@/assets/git.png'        
+import DinoGame from './dinoGame'
 
 export function AppleInspiredPortfolioComponent() {
   const [activeSection, setActiveSection] = useState('')
@@ -757,6 +758,11 @@ const quizData: Record<string, Question[]> = {
               <p className="mt-4 text-gray-600">Correo: danielduran.ads@gmail.com</p>
             </div>
           </div>
+      {isMobile ? (<DinoGame />) : (
+        <div className="hidden md:block">
+          <DinoGame />
+        </div>
+      )}
         </section>
 
       </main>
