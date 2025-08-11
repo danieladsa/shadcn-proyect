@@ -254,14 +254,12 @@ const quizData: Record<string, Question[]> = {
  const [quizOpen, setQuizOpen] = useState(false)
   const [currentSkill, setCurrentSkill] = useState<string | null>(null)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-  const [score, setScore] = useState(0)
   const [answered, setAnswered] = useState(false)
 
   // Cuando hacen clic en una habilidad
   function openQuiz(skill: string) {
     setCurrentSkill(skill)
     setCurrentQuestionIndex(0)
-    setScore(0)
     setAnswered(false)
     setQuizOpen(true)
     setQuizFinished(false)
@@ -568,7 +566,7 @@ const quizData: Record<string, Question[]> = {
     </section>
    <section
   id="habilidades"
-  className=" py-24 bg-black bg-gradient-to-br from-blue-500/30 to-purple-700/30"
+  className="relative z-30 bg-white py-24  bg-gradient-to-br from-gray-900 to-blue-950"
 >
   <div className="container mx-auto px-4 lg:px-20 max-w-4xl">
   <h2 className="text-4xl font-bold text-white mb-12 text-center">Habilidades</h2>
